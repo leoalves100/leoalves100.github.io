@@ -1,0 +1,17 @@
+ {
+    "short_name": "Teste",
+    "name": "Teste de app PWA",
+    "description": "Progressive web application demonstration",
+    "icons": [
+        {
+            "src": "teste.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "./?utm_source=web_app_manifest",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "theme_color": "#29BDBB",
+    "background_color": "#29BDBB"
+}
