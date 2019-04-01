@@ -12,7 +12,6 @@ self.addEventListener('install', function(e) {
                 '/',
                 '/offline.html',
                 '/main.js',
-                '/sw.js',
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
                 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
                 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js',
@@ -31,14 +30,16 @@ self.addEventListener('activate', function(event) {
   });
 
 
-  self.addEventListener('fetch', (event) => {
-    event.respondWith(async function() {
-      try {
-        return await fetch(event.request);
-      } catch (err) {
-        return caches.match(event.request);
-      }
-    }());
+  this.addEventListener("fetch", event => {
+    event.respondWith(
+      caches.match(event.request)
+        .then(response => {
+          return response || fetch(event.request);
+        })
+        .catch(() => {
+          return caches.match('/offline.html');
+        })
+    )
   });
 
 
