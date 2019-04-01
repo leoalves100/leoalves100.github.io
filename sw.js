@@ -6,10 +6,11 @@ self.addEventListener('install', function(e) {
     // Once the service worker is installed, go ahead and fetch the resources to make this work offline.
     e.waitUntil(
         caches.open(cacheName).then(function(cache) {
+            console.log('Cache aberto');
             return cache.addAll([
-                './',
-                './offline.html',
-                './main.js'
+                '/',
+                '/offline.html',
+                '/main.js'
             ]).then(function() {
                 self.skipWaiting();
             });
