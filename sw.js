@@ -1,12 +1,12 @@
- // Use a cacheName for cache versioning
+//Nome do cache
 var cacheName = 'v1:static';
 
-// Durante a fase de instalação, você geralmente deseja armazenar em cache os ativos estáticos.
+// Durante a fase de instalação, você geralmente deseja armazenar em cache os arquivos estáticos.
 self.addEventListener('install', function(e) {
     // Once the service worker is installed, go ahead and fetch the resources to make this work offline.
     e.waitUntil(
         caches.open(cacheName).then(function(cache) {
-            console.log('Cache aberto');
+            console.log('Cache armazenado');
             //Arquivos que serão armazenados no cache
             return cache.addAll([
                 '/',
@@ -33,3 +33,7 @@ self.addEventListener('fetch', function(event) {
         })
     );
 });
+
+self.addEventListener('activate', function(event) {
+    console.log('Service Worker ativado.');
+  });
