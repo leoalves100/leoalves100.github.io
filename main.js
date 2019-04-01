@@ -6,7 +6,7 @@ if ('serviceWorker' in navigator) {
         console.warn('Error whilst registering service worker', err);
     });
 }
-
+/*
 window.addEventListener('online', function(e) {
     // Resync data with server.
     console.log("Você estar online");
@@ -30,3 +30,4 @@ if (navigator.onLine) {
 
 // Set Knockout view model bindings.
 ko.applyBindings(Page.vm);
+*/
