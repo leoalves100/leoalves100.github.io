@@ -1,12 +1,12 @@
 //Nome do cache
 var cacheName = 'v1:static';
 
-// Durante a fase de instalação, você geralmente deseja armazenar em cache os arquivos estáticos.
+//Realiza a instalação do ServiceWorker.
 self.addEventListener('install', function(e) {
     // Once the service worker is installed, go ahead and fetch the resources to make this work offline.
     e.waitUntil(
         caches.open(cacheName).then(function(cache) {
-            console.log('Cache armazenado');
+            console.log('Cache armazenado com sucesso');
             //Arquivos que serão armazenados no cache
             return cache.addAll([
                 '/',
@@ -29,32 +29,13 @@ self.addEventListener('activate', function(event) {
     console.log('Service Worker ativado.');
   });
 
-
-  self.addEventListener('fetch', (e) => {
-    // All requests made to the server will pass through here.
+//Todos os pedidos feitos para o servidor passará por aqui
+self.addEventListener('fetch', (e) => {
     let response = fetch(e.request)
         .then((response) => response)
-        // If one fails, return the offline page from the cache.
-        // caches.match doesn't require the name of the specific
-        // cache in which the key is located. It just traverses all created
-        // by the current domain and fetches the first one.
+        // Caso a busca falhe, exibe arquivo em cache
         .catch(() => caches.match('/offline.html'));
+        console.log('Exibindo página do cache');
 
     e.respondWith(response);
 });
-
-
-/* when the browser fetches a URL…
-self.addEventListener('fetch', function(event) {
-    // … either respond with the cached object or go ahead and fetch the actual URL
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            if (response) {
-                // retrieve from cache
-                return response;
-            }
-            // fetch as normal
-            return fetch(event.request);
-        })
-    );
-});*/
