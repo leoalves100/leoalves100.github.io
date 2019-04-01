@@ -25,7 +25,23 @@ self.addEventListener('install', function(e) {
     );
 });
 
-// when the browser fetches a URL…
+self.addEventListener('activate', function(event) {
+    console.log('Service Worker ativado.');
+  });
+
+
+  self.addEventListener('fetch', (event) => {
+    event.respondWith(async function() {
+      try {
+        return await fetch(event.request);
+      } catch (err) {
+        return caches.match(event.request);
+      }
+    }());
+  });
+
+
+/* when the browser fetches a URL…
 self.addEventListener('fetch', function(event) {
     // … either respond with the cached object or go ahead and fetch the actual URL
     event.respondWith(
@@ -38,8 +54,4 @@ self.addEventListener('fetch', function(event) {
             return fetch(event.request);
         })
     );
-});
-
-self.addEventListener('activate', function(event) {
-    console.log('Service Worker ativado.');
-  });
+});*/
