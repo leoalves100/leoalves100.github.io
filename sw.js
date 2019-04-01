@@ -30,17 +30,18 @@ self.addEventListener('activate', function(event) {
   });
 
 
-  this.addEventListener("fetch", event => {
-    event.respondWith(
-      caches.match(event.request)
-        .then(response => {
-          return response || fetch(event.request);
-        })
-        .catch(() => {
-          return caches.match('/offline.html');
-        })
-    )
-  });
+  self.addEventListener('fetch', (e) => {
+    // All requests made to the server will pass through here.
+    let response = fetch(e.request)
+        .then((response) => response)
+        // If one fails, return the offline page from the cache.
+        // caches.match doesn't require the name of the specific
+        // cache in which the key is located. It just traverses all created
+        // by the current domain and fetches the first one.
+        .catch(() => caches.match('/offline.html'));
+
+    e.respondWith(response);
+});
 
 
 /* when the browser fetches a URL…
