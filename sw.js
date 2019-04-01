@@ -13,6 +13,7 @@ self.addEventListener('install', function(e) {
                 '/offline.html',
                 '/main.js'
             ]).then(function() {
+                //Força a atualização do Service Worker
                 self.skipWaiting();
             });
         })
