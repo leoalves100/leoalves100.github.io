@@ -10,7 +10,7 @@ self.addEventListener('install', function(e) {
             //Arquivos que serão armazenados no cache
             return cache.addAll([
                 '/',
-                '/offline.html',
+                '/404.jpeg',
                 '/main.js',
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
                 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
